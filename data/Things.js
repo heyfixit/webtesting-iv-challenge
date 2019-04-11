@@ -22,8 +22,11 @@ module.exports = {
     Things.push(newThing);
     return Promise.resolve(newThing);
   },
-  delete: id => {
-    const foundIndex = Things.indexOf(t => t.id === id);
+  remove: id => {
+    console.log(id);
+    console.log(Things);
+    const foundIndex = Things.findIndex(t => t.id.toString() === id.toString());
+    console.log(foundIndex);
     if (foundIndex === -1) {
       return Promise.resolve(null);
     }

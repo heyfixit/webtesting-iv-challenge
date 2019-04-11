@@ -10,13 +10,23 @@ server.get('/', async (req, res) => {
 
 server.post('/things', (req, res) => {
   const newThing = req.body;
-  if(!newThing.name) {
-    return res.status(422).json({message: 'Name required'});
+  if (!newThing.name) {
+    return res.status(422).json({ message: 'Name required' });
   }
 
   return Things.insert(req.body).then(createdThing =>
     res.status(200).json(createdThing)
   );
+});
+
+server.delete('/things/:id', (req, res) => {
+  return Things.remove(req.params.id).then(thing => {
+    if (!thing) {
+      return res.status(404).json({ message: 'Thing not found' });
+    }
+
+    return res.status(200).json(thing);
+  });
 });
 
 module.exports = server;

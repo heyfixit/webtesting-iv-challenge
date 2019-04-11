@@ -33,4 +33,17 @@ describe('server.js', () => {
     });
   });
 
+  describe('DELETE /things/:id', () => {
+    it('should respond with deleted resource on success', () => {
+      return request(server)
+        .delete('/things/5')
+        .then(res => expect(res.body).toEqual({ id: 5, name: 'Test5' }));
+    });
+
+    it('should respond with 404 if resource not found', () => {
+      return request(server)
+        .delete('/things/5')
+        .then(res => expect(res.body).toEqual({ id: 5, name: 'Test5' }));
+    });
+  });
 });
